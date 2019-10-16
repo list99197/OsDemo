@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.input.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.text.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.table.data.NoteContro">
+   <center>
+      <TextArea fx:id="ta" BorderPane.alignment="CENTER" />
+   </center>
+   <top>
+      <MenuBar fx:id="mb" BorderPane.alignment="CENTER">
+         <menus>
+            <Menu fx:id="mFile" mnemonicParsing="false" text="文件">
+               <items>
+                  <MenuItem fx:id="miSave" mnemonicParsing="false" onAction="#save" text="保存">
+                     <accelerator>
+                        <KeyCodeCombination alt="UP" code="S" control="DOWN" meta="UP" shift="UP" shortcut="UP" />
+                     </accelerator></MenuItem>
+               </items>
+            </Menu>
+         </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
