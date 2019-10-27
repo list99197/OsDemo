@@ -11,17 +11,19 @@
 
 <BorderPane fx:id="ROOT" prefHeight="960.0" prefWidth="1500.0" stylesheets="@application.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AllPaneController">
    <top>
-      <MenuBar prefHeight="34.0" prefWidth="1500.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
+      <MenuBar fx:id="osBar" prefHeight="34.0" prefWidth="1500.0" stylesheets="@application.css" BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="  系统  ">
+          <Menu fx:id="systemMenu" mnemonicParsing="false" text="  系统  ">
             <items>
-              <MenuItem mnemonicParsing="false" text=" 退出" />
+              <MenuItem fx:id="exitItem" mnemonicParsing="false" onAction="#miexit" text=" 退出" />
+                  <MenuItem fx:id="startItem" mnemonicParsing="false" onAction="#startProcess" text=" 开始" />
+                  <MenuItem fx:id="pauseItem" mnemonicParsing="false" onAction="#pause" text="暂停" visible="false" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="  帮助  ">
+          <Menu fx:id="helpMenu" mnemonicParsing="false" text="  帮助  ">
             <items>
-              <MenuItem mnemonicParsing="false" text="使用说明" />
-                  <MenuItem mnemonicParsing="false" text="关于" />
+              <MenuItem fx:id="useItem" mnemonicParsing="false" onAction="#aboutUsage" text="使用说明" />
+                  <MenuItem fx:id="about" mnemonicParsing="false" onAction="#aboutSystem" text="关于" />
             </items>
           </Menu>
         </menus>
@@ -71,7 +73,7 @@
                                           </Label>
                                           <TableView fx:id="runningProcessInfo" layoutX="5.0" layoutY="51.0" prefHeight="303.0" prefWidth="749.0">
                                             <columns>
-                                              <TableColumn prefWidth="102.0">
+                                              <TableColumn fx:id="runningPid" prefWidth="102.0">
                                                    <graphic>
                                                       <Label prefHeight="20.0" prefWidth="61.0" text="PID">
                                                          <font>
@@ -79,7 +81,7 @@
                                                          </font>
                                                       </Label>
                                                    </graphic></TableColumn>
-                                              <TableColumn prefWidth="224.0">
+                                              <TableColumn fx:id="order" prefWidth="224.0">
                                                    <graphic>
                                                       <Label prefHeight="20.0" prefWidth="164.0" text="运行的指令">
                                                          <font>
@@ -87,7 +89,7 @@
                                                          </font>
                                                       </Label>
                                                    </graphic></TableColumn>
-                                                <TableColumn prefWidth="206.0">
+                                                <TableColumn fx:id="result" prefWidth="206.0">
                                                    <graphic>
                                                       <Label prefHeight="20.0" prefWidth="122.0" text="中间结果">
                                                          <font>
@@ -95,7 +97,7 @@
                                                          </font>
                                                       </Label>
                                                    </graphic></TableColumn>
-                                                <TableColumn prefWidth="215.0">
+                                                <TableColumn fx:id="remainTime" prefWidth="215.0">
                                                    <graphic>
                                                       <Label prefHeight="20.0" prefWidth="149.0" text="时间片剩余值">
                                                          <font>
@@ -136,27 +138,27 @@
                                                 </TableColumn>
                                             </columns>
                                           </TableView>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d0e4f7f3" height="144.0" layoutX="490.5" layoutY="342.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="265.0" AnchorPane.bottomAnchor="6.0" AnchorPane.leftAnchor="490.0" AnchorPane.rightAnchor="8.0" AnchorPane.topAnchor="342.0" />
-                                          <Label alignment="CENTER" layoutX="491.0" layoutY="342.0" prefHeight="31.0" prefWidth="265.0" styleClass="readyp" text="就绪队列进程">
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#d0e4f7f3" height="196.0" layoutX="491.5" layoutY="291.5" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="265.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="491.0" AnchorPane.rightAnchor="7.0" AnchorPane.topAnchor="291.0" />
+                                          <Label alignment="CENTER" layoutX="492.0" layoutY="292.0" prefHeight="31.0" prefWidth="265.0" styleClass="readyp" text="就绪队列进程">
                                              <font>
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <TableView layoutX="491.0" layoutY="373.0" prefHeight="113.0" prefWidth="264.0">
+                                          <TableView fx:id="readyProcessInfo" layoutX="492.0" layoutY="323.0" prefHeight="163.0" prefWidth="264.0">
                                             <columns>
-                                              <TableColumn prefWidth="263.0" text="PID" />
+                                              <TableColumn fx:id="readyPid" prefWidth="263.0" text="PID" />
                                             </columns>
                                           </TableView>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c0ddf8" height="330.0" layoutX="488.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="268.0" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#c0ddf8" height="281.0" layoutX="488.0" layoutY="4.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" width="268.0" />
                                           <Label alignment="CENTER" layoutX="489.0" layoutY="4.0" prefHeight="38.0" prefWidth="267.0" styleClass="blockp" text="阻塞队列进程">
                                              <font>
                                                 <Font size="17.0" />
                                              </font>
                                           </Label>
-                                          <TableView layoutX="489.0" layoutY="42.0" prefHeight="291.0" prefWidth="266.0">
+                                          <TableView fx:id="blockProcessInfo" layoutX="489.0" layoutY="42.0" prefHeight="242.0" prefWidth="266.0">
                                             <columns>
-                                              <TableColumn prefWidth="97.0" text="PID" />
-                                              <TableColumn prefWidth="168.0">
+                                              <TableColumn fx:id="blockPid" prefWidth="97.0" text="PID" />
+                                              <TableColumn fx:id="blockWaitTime" prefWidth="168.0">
                                                    <graphic>
                                                       <Label prefHeight="20.0" prefWidth="255.0" text="等待时间（单位：s）">
                                                          <font>
@@ -219,7 +221,7 @@
                      <children>
                         <SplitPane dividerPositions="0.5, 0.5" layoutY="-1.0" prefHeight="853.0" prefWidth="300.0">
                            <items>
-                              <SplitPane dividerPositions="0.5" orientation="VERTICAL" prefHeight="851.0" prefWidth="300.0">
+                              <SplitPane dividerPositions="1.0" orientation="VERTICAL" prefHeight="851.0" prefWidth="300.0">
                                  <items>
                                     <BorderPane prefHeight="450.0" prefWidth="298.0">
                                        <top>
@@ -234,37 +236,25 @@
                                           <TreeView fx:id="fileTreePane" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                                        </center>
                                     </BorderPane>
-                                    <BorderPane prefHeight="200.0" prefWidth="200.0">
-                                       <top>
-                                          <AnchorPane prefHeight="46.0" prefWidth="300.0" BorderPane.alignment="CENTER">
-                                             <children>
-                                                <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cfe6fc" height="46.0" stroke="BLACK" strokeType="INSIDE" width="300.0" />
-                                                <Label alignment="CENTER" prefHeight="47.0" prefWidth="299.0" text="文件分配表" />
-                                             </children>
-                                          </AnchorPane>
-                                       </top>
-                                       <center>
-                                          <TableView fx:id="fileDistributed" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-                                            <columns>
-                                              <TableColumn fx:id="fileId" prefWidth="151.0" text="编号" />
-                                              <TableColumn fx:id="fileContext" prefWidth="148.0" text="内容" />
-                                            </columns>
-                                          </TableView>
-                                       </center>
-                                    </BorderPane>
+                                    <BorderPane prefHeight="200.0" prefWidth="200.0" />
                                  </items>
                               </SplitPane>
                               <BorderPane id="orderpane" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="851.0" prefWidth="595.0">
                                  <top>
-                                    <AnchorPane prefHeight="43.0" prefWidth="597.0" BorderPane.alignment="CENTER">
+                                    <AnchorPane prefHeight="46.0" prefWidth="300.0" BorderPane.alignment="CENTER">
                                        <children>
-                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cfe4f8" height="43.0" stroke="BLACK" strokeType="INSIDE" width="594.0" />
-                                          <Label alignment="CENTER" prefHeight="42.0" prefWidth="596.0" text="命令行" />
+                                          <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#cfe6fc" height="46.0" layoutX="1.0" stroke="BLACK" strokeType="INSIDE" width="595.0" />
+                                          <Label alignment="CENTER" prefHeight="46.0" prefWidth="597.0" text="文件分配表" />
                                        </children>
                                     </AnchorPane>
                                  </top>
                                  <center>
-                                    <TextArea prefHeight="345.0" prefWidth="595.0" BorderPane.alignment="CENTER" />
+                                    <TableView fx:id="fileDistributed" prefHeight="819.0" prefWidth="595.0" BorderPane.alignment="CENTER">
+                                      <columns>
+                                        <TableColumn fx:id="fileId" prefWidth="297.0" text="编号" />
+                                        <TableColumn fx:id="fileContext" prefWidth="297.0" text="内容" />
+                                      </columns>
+                                    </TableView>
                                  </center>
                               </BorderPane>
                               <BorderPane prefHeight="853.0" prefWidth="556.0">

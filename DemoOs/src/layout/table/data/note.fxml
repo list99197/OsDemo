@@ -10,7 +10,7 @@
 
 <BorderPane xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="layout.table.data.NoteContro">
    <center>
-      <TextArea fx:id="ta" BorderPane.alignment="CENTER" />
+      <TextArea fx:id="ta" wrapText="true" BorderPane.alignment="CENTER" />
    </center>
    <top>
       <MenuBar fx:id="mb" BorderPane.alignment="CENTER">
